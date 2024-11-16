@@ -5,77 +5,65 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import './index.css';
-import Header from './Header.js';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './Login';
-import RecoverPassword from './RecoverPassword';
-import {ListUsers} from './ListUsers.js';
-import { Registro } from './Registro';
-import {CreateQuestionnaire} from './CreateQuestionnaire.js';
-import UseComponent from './ComponentUse.js';
-import { AnswerQuestionnaire } from './Components/AnswerQuestionnaire.js';
-import { Dashboard } from './Dashboard.js';
-import { ShowQuestionnaires } from './ShowQuestionnaires.js';
-
+import { RecoverPassword } from './RecoverPassword';
+import { ListUsers } from './ListUsers';
+import { CreateQuestionnaire } from './CreateQuestionnaire';
+import { Header } from './components/Header';
+import { Dashboard } from './Dashboard';
+import { ShowQuestionnaires } from './ShowQuestionnaires';
+import { RegisterUser } from './RegisterUser';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Login/>
-  },
-  
-  {
-    path: "/recover-password",
-    element: <RecoverPassword/>
-  },
-  {
     path: "/home",
-    element: <Dashboard/>
-  },
-  {
-    path: "/register",
-    element: <Registro/>
-  },
-  {
-    path: "/create-questionnaire/:id",
-    element: <CreateQuestionnaire/>
-  },
-  {
-    path: "/grafica",
-    element: <UseComponent/>
-  },
-  {
-    path: "/questionnaire",
-    element: <AnswerQuestionnaire/>
+    element: <Dashboard />,
   },
   {
     path: "/list-users",
-    element: <ListUsers/>
+    element: <ListUsers />,
   },
   {
     path: "/list-q",
-    element: <ShowQuestionnaires/>
+    element: <ShowQuestionnaires />,
+  },
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/recover-password",
+    element: <RecoverPassword />,
+  },
+  {
+    path: "/register-user",
+    element: <RegisterUser />,
+  },
+  {
+    path: "/create-questionnaires/:id",
+    element: <CreateQuestionnaire />,
   },
 ]);
-
-const user ={
+const user = {
   name:"Ulises",
-  logined: true,
-  rol:"Client"
+  logined:true,
+  rol:"administrator"
 };
 localStorage.user = JSON.stringify(user);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode> <>
-  {
-    user?.logined == true && (
-        <Header/>
-    )
-  }
-  <RouterProvider router={router} />
-  </>
+  <React.StrictMode>
+    <>
+      {
+        user?.logined == true && (
+          <Header />
+        )
+      }
+      <RouterProvider router={router} />
+    </>
   </React.StrictMode>
 );
 

@@ -1,36 +1,23 @@
-import React from "react";
-import { useState } from "react"
-import { Card, Container, Form, Button } from "react-bootstrap";
-import Header from "./Header";
+import React, { useState } from 'react'
+import { Button, Card, Container, Form } from 'react-bootstrap'
 
-
- export const RecoverPassword = () => {
-    const [email, setEmail] = useState ("");
-    const onChange = (e) =>{
+export const RecoverPassword = () => {
+    const [email, setEmail] = useState("");
+    const onChange = (e) => {
         e.preventDefault();
         setEmail(e.target.value)
     }
-
-    const onSubmit = () => {
-        console.log(email)
-      }
-
-    return(
-        <>
-        <Container className="mt-4">
-            <Card style={{boxShadow:'0 4px 8px rgba(128,0,128,0.6)'}}>
+    return (
+        <Container>
+            <Card className="mt-3">
                 <Card.Body>
-                    <Card.Title>Recuperar Contraseña</Card.Title>
-                    <Form.Control className="mt-3" type="email" name ="email" placeholder="Ingresa tu correo" onChange={onChange}></Form.Control>
-                    <div className="text-end">
-                    <Button variant="primary" className="mt-3" onClick={() => onSubmit()}>Recuperar Contraseña</Button>
-                    </div>
+                    <Card.Title>Ingresa tu correo electronico:</Card.Title>
+                    <Form.Control className='mt-3 mb-3' name="email" placeholder='Ingrese su correo'
+                        onChange={onChange}
+                    />
+                    <Button>Recuperar contraseña</Button>
                 </Card.Body>
             </Card>
         </Container>
-        </>
-    );
-};
-
-export default RecoverPassword;
-
+    )
+}
