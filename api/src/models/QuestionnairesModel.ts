@@ -1,10 +1,7 @@
 import { Schema,model } from "mongoose";
+import { IQuestionnaire } from "../GlobalTypes";
 
-interface IQuestionnaire{
-    title:String,
-    description:String,
-    userId:Schema.Types.ObjectId | String;
-}
+
 
 const QuestionnaireSchema = new Schema<IQuestionnaire>({
     title:{

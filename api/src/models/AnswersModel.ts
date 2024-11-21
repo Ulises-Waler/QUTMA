@@ -1,10 +1,7 @@
 import { Schema, model } from "mongoose";
+import { IAnswer } from "../GlobalTypes";
 
-interface IAnswer{
-    questionnaireId:Schema.Types.ObjectId | string;
-    questionId:Schema.Types.ObjectId | string;
-    answer:String;
-}
+
 
 const AnswerSchema = new Schema<IAnswer>({
     questionnaireId:{

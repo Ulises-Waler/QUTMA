@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
+import { registerUsers } from "./controllers/UserControler";
 
 
 const app: Application = express();
@@ -13,4 +14,5 @@ app.get("/", (_req: Request, res: Response) => {
     res.send("Hola desde mi servidor con TS");
 })
 
+app.post ("/users/create", registerUsers)
 export default app;
