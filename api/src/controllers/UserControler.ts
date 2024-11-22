@@ -1,5 +1,7 @@
+/// <reference path="../@types/index.d.ts" />
 import { Request, Response } from "express";
 import { UserModel } from "../models/UserModel";
+
 
 export const registerUsers = async (req: Request, rest: Response): Promise<void> => {
     try {
