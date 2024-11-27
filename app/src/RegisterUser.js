@@ -21,7 +21,7 @@ export const RegisterUser = () => {
         /* Enviar data al server */
         try {
             data.rol = "client"
-            await axios.post("http://localhost:4000/users/", data)
+            await axios.post("http://localhost:4000/users/create", data)
         } catch (error) {
             alert("Hubo un error", error)
         }
