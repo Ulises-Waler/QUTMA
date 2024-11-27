@@ -14,5 +14,5 @@ app.get("/", (_req: Request, res: Response) => {
     res.send("Hola desde mi servidor con TS");
 })
 
-app.post ("/users/create", registerUsers)
+app.post ("/users/create", registerUsers);
 export default app;
