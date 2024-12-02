@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { Card, Container, Form, Row, Col, Button, InputGroup, CloseButton, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import { AnwerQuestionnaire } from './components/AnwerQuestionnaire';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const CreateQuestionnaire = () => {
+    const navigate = useNavigate();
 
     const [showQuestionnaire, setShowQuestionnaire] = useState(false);
 
@@ -60,14 +63,23 @@ export const CreateQuestionnaire = () => {
         setCreateQuestionnaire({ ...data });
     }
 
-    const sendData = () => {
+    const sendData = async () => {
+        try {
+            const res = await axios.post("http://localhost:4000/Questionnaire/createQuestionnaire", createQuestionnaire)
+            const user = res.data.user;
+            user.logined = true;
+            localStorage.user = JSON.stringify(user)
+            navigate("/list-q")
+        } catch (error) {
+            alert("Hubo un error", error)
+        }
         console.log(createQuestionnaire);
     }
 
-    const onChangeOptionTitle = (e,iq,io)=>{
+    const onChangeOptionTitle = (e, iq, io) => {
         const data = createQuestionnaire;
         data.questions[iq].options[io] = e.target.value;
-        setCreateQuestionnaire({...data})
+        setCreateQuestionnaire({ ...data })
     }
     return (
         <Container>
@@ -75,6 +87,8 @@ export const CreateQuestionnaire = () => {
                 <Card.Body>
                     <Card.Title>{createQuestionnaire.title}</Card.Title>
                     <Form.Control placeholder='Cambia el nombre de tu cuestionario' name="title" onChange={onChangeTitle} />
+                    <Card.Title>Descripción</Card.Title>
+                    <Form.Control placeholder='Agrega una pequeña descripción' name="description" />
                 </Card.Body>
             </Card>
             {
@@ -123,9 +137,9 @@ export const CreateQuestionnaire = () => {
                                                 q.options.map((o, io) => (
                                                     <li className='mb-3'>
                                                         <InputGroup>
-                                                            <Form.Control 
+                                                            <Form.Control
                                                                 value={o}
-                                                                onChange={(e)=>onChangeOptionTitle(e,i,io)}
+                                                                onChange={(e) => onChangeOptionTitle(e, i, io)}
                                                             />
                                                             {
                                                                 q.options.length != 1 && (
@@ -161,10 +175,10 @@ export const CreateQuestionnaire = () => {
                     </Row>
                 </Col>
             </Row>
-            <Button onClick={()=>setShowQuestionnaire(true)}>Vista previa</Button>
+            <Button onClick={() => setShowQuestionnaire(true)}>Vista previa</Button>
             {
                 showQuestionnaire && (
-                    <AnwerQuestionnaire questionnaire={createQuestionnaire}/>
+                    <AnwerQuestionnaire questionnaire={createQuestionnaire} />
                 )
             }
         </Container>

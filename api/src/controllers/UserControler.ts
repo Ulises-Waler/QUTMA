@@ -64,11 +64,9 @@ export const singin= async (req:Request, res: Response):Promise<void>=>{
             })
             return;
            }
-       if(user){
         const token= jwt.sign(JSON.stringify(user),"pocoyo");
-         res.status(200).json({msg: "Sesion iniciada con exito", token})
+         res.status(200).json({msg: "Sesion iniciada con exito", token, user})
          return;
-       }
     } catch (error) {
         console.log(error);
          res.status(500).json({
@@ -78,4 +76,4 @@ export const singin= async (req:Request, res: Response):Promise<void>=>{
     }
 
 }
-    
+
