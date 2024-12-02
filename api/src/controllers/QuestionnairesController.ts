@@ -4,11 +4,12 @@ import { OptionModel } from "../models/OptionsModel";
 import { QuestionModel } from "../models/QuestionsModel";
 import { QuestionnaireModel } from "../models/QuestionnairesModel";
 
-export const createQuestionnaire = async (req: Request, res: Response): Promise<void> => {
+
+export const createQuestionnaires = async (req: Request, res: Response): Promise<void> => {
     try {
         const title = req.body.title
         const description = req.body.description
-        const userId = req.body.userId
+        const userId = req.user?._id
 
         if (req.user?.rol === "administrator") {
             res.status(400).json({

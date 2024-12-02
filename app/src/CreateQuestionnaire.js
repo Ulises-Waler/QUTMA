@@ -63,9 +63,9 @@ export const CreateQuestionnaire = () => {
         setCreateQuestionnaire({ ...data });
     }
 
-    const sendData = async () => {
+    const onSubmit = async () => {
         try {
-            const res = await axios.post("http://localhost:4000/Questionnaire/createQuestionnaire", createQuestionnaire)
+            const res = await axios.post("http://localhost:4000/questionnaire/createQuestionnaires", createQuestionnaire);
             const user = res.data.user;
             user.logined = true;
             localStorage.user = JSON.stringify(user)
@@ -87,8 +87,8 @@ export const CreateQuestionnaire = () => {
                 <Card.Body>
                     <Card.Title>{createQuestionnaire.title}</Card.Title>
                     <Form.Control placeholder='Cambia el nombre de tu cuestionario' name="title" onChange={onChangeTitle} />
-                    <Card.Title>Descripción</Card.Title>
-                    <Form.Control placeholder='Agrega una pequeña descripción' name="description" />
+                    <Card.Title>{createQuestionnaire.description}</Card.Title>
+                    <Form.Control placeholder='Agrega una pequeña descripción' name="description"/>
                 </Card.Body>
             </Card>
             {
@@ -170,7 +170,7 @@ export const CreateQuestionnaire = () => {
                 <Col>
                     <Row>
                         <Col className='text-center'>
-                            <Button variant='success' onClick={() => sendData()}>Guardar cuestionario</Button>
+                            <Button variant='success' onClick={() => onSubmit()}>Guardar cuestionario</Button>
                         </Col>
                     </Row>
                 </Col>

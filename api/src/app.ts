@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import { registerUsers, singin } from "./controllers/UserControler";
-import { getQuestionnaire } from "./controllers/QuestionnairesController";
+import { createOption, createQuestion, createQuestionnaires, getQuestionnaire } from "./controllers/QuestionnairesController";
 
 
 const app: Application = express();
@@ -17,5 +17,7 @@ app.get("/", (_req: Request, res: Response) => {
 
 app.post ("/users/create", registerUsers);  
 app.post ("/users/singin", singin);
+app.post ("/questionnaire/createQuestionnaires", createQuestionnaires, createQuestion, createOption);
+
 
 export default app;
