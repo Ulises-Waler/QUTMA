@@ -21,6 +21,6 @@ const AnswerSchema = new Schema<IAnswer>({
     }
     
    
-})
+})  
 
 export const AnswerModel = model ("answers",AnswerSchema);

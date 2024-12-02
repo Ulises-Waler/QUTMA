@@ -11,7 +11,7 @@ export const CreateQuestionnaire = () => {
 
     const [createQuestionnaire, setCreateQuestionnaire] = useState({
         title: "Cuestionario vacio",
-        description: "Descripcion simple",
+        description:"Cuestionario vacío",
         questions: [
             {
                 title: "Pregunta sin titulo",
@@ -19,7 +19,8 @@ export const CreateQuestionnaire = () => {
                 options: ["Opción 1"],
                 isMandatory: false,
             }
-        ]
+        ],
+        userId: JSON.parse(localStorage.user)._id
     });
 
     const onChangeTitle = (e) => {
@@ -27,6 +28,12 @@ export const CreateQuestionnaire = () => {
         const data = createQuestionnaire;
         data.title = e.target.value;
         setCreateQuestionnaire({ ...data })
+    };
+
+    const onChangeDescription = (e) => {
+        const data = createQuestionnaire;
+        data.description = e.target.value;  
+        setCreateQuestionnaire({ ...data });
     };
 
     const onChangeBasicFields = (e, index) => {
@@ -66,9 +73,6 @@ export const CreateQuestionnaire = () => {
     const onSubmit = async () => {
         try {
             const res = await axios.post("http://localhost:4000/questionnaire/createQuestionnaires", createQuestionnaire);
-            const user = res.data.user;
-            user.logined = true;
-            localStorage.user = JSON.stringify(user)
             navigate("/list-q")
         } catch (error) {
             alert("Hubo un error", error)
@@ -87,9 +91,9 @@ export const CreateQuestionnaire = () => {
                 <Card.Body>
                     <Card.Title>{createQuestionnaire.title}</Card.Title>
                     <Form.Control placeholder='Cambia el nombre de tu cuestionario' name="title" onChange={onChangeTitle} />
-                    <Card.Title>{createQuestionnaire.description}</Card.Title>
-                    <Form.Control placeholder='Agrega una pequeña descripción' name="description"/>
-                </Card.Body>
+                    <Card.Title>Descripción</Card.Title>
+                    <Form.Control placeholder='Agrega una pequeña descripción' name="description" onChange={onChangeDescription} /> 
+                </Card.Body>    
             </Card>
             {
                 createQuestionnaire.questions.map((q, i) => (

@@ -3,13 +3,14 @@ import { AnswerModel } from "../models/AnswersModel";
 import { OptionModel } from "../models/OptionsModel";
 import { QuestionModel } from "../models/QuestionsModel";
 import { QuestionnaireModel } from "../models/QuestionnairesModel";
+import { UserModel } from "../models/UserModel";
 
 
 export const createQuestionnaires = async (req: Request, res: Response): Promise<void> => {
     try {
         const title = req.body.title
         const description = req.body.description
-        const userId = req.user?._id
+        const userId = req.body.userId
 
         if (req.user?.rol === "administrator") {
             res.status(400).json({
@@ -28,6 +29,12 @@ export const createQuestionnaires = async (req: Request, res: Response): Promise
             description,
             userId,
         });
+
+        const user = await  UserModel.findById(userId);
+        if(!user){
+            res.status(400).json({msg:"El usuario que intenta crear la actividad no existe"})
+            return;
+        }
 
         res.status(200).json({ msg: "Cuestionario creado con éxito", questionnaire })
         return;
