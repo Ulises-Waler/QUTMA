@@ -3,6 +3,7 @@ import { IQuestion, IQuestionnaire } from "../GlobalTypes";
 import { QuestionModel } from "../models/QuestionsModel";
 import { QuestionnaireModel } from "../models/QuestionnairesModel";
 import { OptionModel } from "../models/OptionsModel";
+import { UserModel } from "../models/UserModel";
 
 
 export const createQst = async (req: Request, res: Response): Promise<void> => {
@@ -54,3 +55,31 @@ export const createQst = async (req: Request, res: Response): Promise<void> => {
         return
     }
 }
+
+
+export const getMetrics = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const numberOfUsers = await UserModel.find({rol :"client"}).countDocuments();
+        const numberOfQuestionnaires = await QuestionnaireModel.find().countDocuments();
+        res.status(200).json({ msg: "Datos Obtenidos con éxito", numberOfQuestionnaires, numberOfUsers })
+        return
+
+    } catch (error) {
+        res.status(500).json({ msg: "Hubo un error al obtenr los datos", error})
+        console.error("Hubo un error al obtener loa datos")
+        return
+    }
+}
+
+export const getQuestionnaire = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const questionnaires = await QuestionnaireModel.find();
+        res.status(200).json({ msg: "Datos Obtenidos con éxito", questionnaires })
+        return; 
+    } catch (error) {
+        res.status(500).json({ msg: "Hubo un error al obtenr los datos", error})
+        console.error("Hubo un error al obtener loa datos")
+        return;
+    }
+}
+

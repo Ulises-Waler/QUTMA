@@ -12,7 +12,7 @@ export const registerUsers = async (req: Request, rest: Response): Promise<void>
 
         if (req.user?.rol === "administrator" && rol === "client") {
             rest.status(400).json({
-                msg: "Los administradores no pueden crear clientes"
+                msg: "Los administradores no pueden crear clientes"     
             })
             return
         }

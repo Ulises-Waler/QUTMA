@@ -8,17 +8,19 @@ export const CreateQuestionnaire = () => {
     const navigate = useNavigate();
 
     const [showQuestionnaire, setShowQuestionnaire] = useState(false);
+    const defaultQuestion = {
+            title: "Pregunta sin titulo",
+            type: "radio",
+            options: ["Opción 1"],
+            isMandatory: false,
+        }
+    
 
     const [createQuestionnaire, setCreateQuestionnaire] = useState({
         title: "Cuestionario vacio",
         description:"Cuestionario vacío",
         questions: [
-            {
-                title: "Pregunta sin titulo",
-                type: "radio",
-                options: ["Opción 1"],
-                isMandatory: false,
-            }
+            deleteQuestion
         ],
         userId: JSON.parse(localStorage.user)._id
     });
@@ -49,11 +51,7 @@ export const CreateQuestionnaire = () => {
 
     const addQuestion = () => {
         const data = createQuestionnaire;
-        data.questions.push({
-            title: "Pregunta sin titulo",
-            type: "radio",
-            options: ["Opción 1"]
-        })
+        data.questions.push(defaultQuestion)
         setCreateQuestionnaire({ ...data })
     };
 

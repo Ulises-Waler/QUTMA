@@ -15,7 +15,7 @@ export const ShowQuestionnaires = () => {
                     <Card.Text><b>Formularios recientes:</b></Card.Text>
                     {
                         user.rol == "client" && (
-                            <Button onClick={()=>navigate("/create-questionnaires")}>Add</Button>
+                            <Button onClick={()=>navigate("/create-questionnaires")}>Crear Cuestionario </Button>
                         )
                     }
                     <ListQuestionnaires rol={user.rol} />
